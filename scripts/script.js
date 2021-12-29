@@ -107,12 +107,15 @@ function getToken() {
     if (cognitoUser != null) {
         cognitoUser.getSession(function (err, result) {
             if (err) {
-                console.log("Error in getSession()")
-                console.error(err)
+                console.log("Error in getSession()");
+                console.error(err);
+                return err;
             }
             if(result) {
                 console.log('User currently logged in.')
-                console.log(result.getIdToken().getJwtToken());                   
+                console.log(result.getIdToken().getJwtToken());
+                idToken = result.getIdToken().getJwtToken();
+                return idToken;
             }
         }) // end of getSession()
     } // end of first if
@@ -126,6 +129,37 @@ function getFileName(fileName) {
 	var name = fileName.files.item(0).name
 	document.getElementById('custom-file-label').innerHTML = name;
 }
+
+
+
+
+function getUploadUrl() {
+	var fileName = document.getElementById('file').files[0].name;
+    var request = new XMLHttpRequest();
+	var params = "filename=" + fileName;
+    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
+    var idToken = getToken();
+
+	// request.open("GET", apiUrl + "/upload?" + params);
+    request.open("GET", apiUrl + params);
+	request.setRequestHeader("Accept", "*/*");
+	request.setRequestHeader("authorization", idToken);
+	request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	request.send();
+
+	request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+			console.log(data);
+		} else {
+			console.log("error");
+		}
+	};
+}
+
+
+
+
 
 
 function addFileName () {
