@@ -155,9 +155,9 @@ function uploadFile(data){
 	const formData = new FormData();
     for (key in data.fields) {
 		formData.append(key, data.fields[key])
+    	}
     
         formData.append('file', file);
-	}
     
     fetch(uploadUrl, {
         method: 'PUT',
