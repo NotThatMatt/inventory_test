@@ -100,19 +100,12 @@ function logOut() {
     location.href = "https://" + domain + ".auth." + region + ".amazoncognito.com/logout?client_id=" + clientId + "&logout_uri=" + redirectURI;
 }
 
-function getGetToken(){
-    token = getToken();
-    console.log("getGetToken*********************")
-    console.log(token);
-    console.log("getGetToken*********************")
-}
-
 function getToken() {
     var cognitoUser = userPool.getCurrentUser();
     console.log("getToken called");
     console.log(cognitoUser);
     if (cognitoUser != null) {
-        bob = cognitoUser.getSession(function (err, result) {
+        tkn = cognitoUser.getSession(function (err, result) {
             if (err) {
                 console.log("Error in getSession()");
                 console.error(err);
@@ -120,12 +113,12 @@ function getToken() {
             }
             if(result) {
                 console.log('User currently logged in.')
-                console.log(result.getIdToken().getJwtToken());
+                // console.log(result.getIdToken().getJwtToken());
                 return result
             }
         }) // end of getSession()
     }
-    idToken = bob.getIdToken().getJwtToken();
+    idToken = tkn.getIdToken().getJwtToken();
     return idToken; // end of first if
 } // end of function
     
@@ -151,10 +144,12 @@ function getUploadUrl() {
         "Authorization": idToken
         }})
     .then(response => response.json())
-    .then(data => uploadFile(data));
+    .then(response => console.log(response))
+    .then(response => uploadFile(response));
 }
 
 function uploadFile(data){
+    console.log(data);
 
     const file = document.getElementById('file').files[0]
 	const uploadUrl = data.url;
