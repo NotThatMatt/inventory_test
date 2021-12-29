@@ -120,6 +120,7 @@ function getToken() {
             if(result) {
                 console.log('User currently logged in.')
                 console.log(result.getIdToken().getJwtToken());
+                return result
             }
         }) // end of getSession()
     }
