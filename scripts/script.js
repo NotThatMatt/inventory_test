@@ -151,6 +151,7 @@ function __uploadFile(data){
     console.log("data: ", data.url);
     
     const file = document.getElementById('file').files[0]
+    console.log("file type: ", file.fileType);
 	const uploadUrl = data.url;
 	const formData = new FormData();
     for (key in data.fields) {
