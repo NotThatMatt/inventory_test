@@ -137,20 +137,20 @@ function getUploadUrl() {
     var params = "filename=" + fileName;
     var idToken = getToken();
 
-    fetch(apiUrl + params,
+    bob = fetch(apiUrl + params,
         {method: 'GET', // or 'PUT'
         headers: {        
         "Authorization": idToken
         }})
     .then(response => response.json())
-    .then(response => {console.log('Success:', response);})
-    .then(response => {uploadFile(response);})
-    .then(uploadFile(response));
-    // .then(response => console.log(response))
-    
+    // .then(response => {console.log('Success:', response);})
+   
+   console.log('bob ', bob);
+
+
 }
 
-function uploadFile(response){
+function uploadFile(data){
     console.log("uploadFile called");
     console.log("response ", response);
 
@@ -158,8 +158,8 @@ function uploadFile(response){
 	const uploadUrl = response.url;
 	const formData = new FormData();
 
-	for (key in response.fields) {
-		formData.append(key, response.fields[key])
+	for (key in data.fields) {
+		formData.append(key, data.fields[key])
 	}
 
 	formData.append('file', file);
