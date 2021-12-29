@@ -145,15 +145,19 @@ function getUploadUrl() {
     var params = "filename=" + fileName;
     var idToken = getToken();
 
-    fetch(apiUrl + params,
-        {method: 'GET', // or 'PUT'
-        headers: {        
-        'Accept': '*/*',
-        "Access-Control-Allow-Origin": "*",
-        "Authorization": idToken
-        }})
+    fetch(apiUrl)
     .then(response => response.json())
     .then(data => console.log(data));
+
+    // fetch(apiUrl + params,
+    //     {method: 'GET', // or 'PUT'
+    //     headers: {        
+    //     'Accept': '*/*',
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Authorization": idToken
+    //     }})
+    // .then(response => response.json())
+    // .then(data => console.log(data));
 }
 
 
