@@ -131,19 +131,22 @@ function getFileName(fileName) {
 
 
 function getUploadUrl() {
+    console.log("getUploadUrl called")
     var fileName = document.getElementById('file').files[0].name;
     var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
     var params = "filename=" + fileName;
     var idToken = getToken();
 
-    fetch(apiUrl + params,
+    response = fetch(apiUrl + params,
         {method: 'GET', // or 'PUT'
         headers: {        
         "Authorization": idToken
         }})
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .then(response => uploadFile(response));
+    console.log("fetch reponse:")
+    console.log(response)
+    // .then(response => response.json())
+    // .then(response => console.log(response))
+    // .then(response => uploadFile(response));
 }
 
 function uploadFile(data){
