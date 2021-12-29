@@ -205,7 +205,7 @@ function uploadFile(data){
 // .catch(error => console.error('Error:', error))
 // .then(response => console.log('Success:', JSON.stringify(response)))
 
-}
+
 
 // function _getUploadUrl() {
 // 	var fileName = document.getElementById('file').files[0].name;
