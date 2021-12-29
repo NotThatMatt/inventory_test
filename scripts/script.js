@@ -146,53 +146,53 @@ function getUploadUrl() {
     .then(response => uploadFile(response));
 }
 
-// function uploadFile(data){
-//     console.log("uploadFile called");
-//     console.log("data: ", data.url);
+function uploadFile(data){
+    console.log("uploadFile called");
+    console.log("data: ", data.url);
     
-//     const file = document.getElementById('file').files[0]
-// 	const uploadUrl = data.url;
-// 	const formData = new FormData();
-//     for (key in data.fields) {
-// 		formData.append(key, data.fields[key])
-//     	}
-    
-//         formData.append('file', file);
-    
-//     fetch(uploadUrl, {
-//         method: 'PUT',
-//         body: formData
-//         })
-//         .then(response => response.json())
-//         .catch(error => console.error('Error:', error))
-//         .then(response => console.log('Success:', JSON.stringify(response)))
-    
-// }
-
-function uploadFile(data) {
-	const file = document.getElementById('file').files[0]
+    const file = document.getElementById('file').files[0]
 	const uploadUrl = data.url;
 	const formData = new FormData();
-
-	for (key in data.fields) {
+    for (key in data.fields) {
 		formData.append(key, data.fields[key])
-	}
-
-	formData.append('file', file);
-
-	var request = new XMLHttpRequest();
-	request.open("POST", uploadUrl, true);
-	request.send(formData);
-
-	request.onload = function () {
-		console.log(this.response);
-		if (request.status >= 200 && request.status < 400) {
-			submitJob()
-		} else {
-			console.log("error");
-		}
-	};
+    	}
+    
+        formData.append('file', file);
+    
+    fetch(uploadUrl, {
+        method: 'PUT',
+        body: formData
+        })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', JSON.stringify(response)))
+    
 }
+
+// function uploadFile(data) {
+// 	const file = document.getElementById('file').files[0]
+// 	const uploadUrl = data.url;
+// 	const formData = new FormData();
+
+// 	for (key in data.fields) {
+// 		formData.append(key, data.fields[key])
+// 	}
+
+// 	formData.append('file', file);
+
+// 	var request = new XMLHttpRequest();
+// 	request.open("POST", uploadUrl, true);
+// 	request.send(formData);
+
+// 	request.onload = function () {
+// 		console.log(this.response);
+// 		if (request.status >= 200 && request.status < 400) {
+// 			submitJob()
+// 		} else {
+// 			console.log("error");
+// 		}
+// 	};
+// }
 
 
 	
