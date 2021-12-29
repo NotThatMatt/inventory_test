@@ -116,16 +116,15 @@ function getToken() {
             if (err) {
                 console.log("Error in getSession()");
                 console.error(err);
-                return err;
             }
             if(result) {
                 console.log('User currently logged in.')
                 console.log(result.getIdToken().getJwtToken());
                 idToken = result.getIdToken().getJwtToken();
-                return idToken;
             }
         }) // end of getSession()
-    } // end of first if
+    }
+    return idToken; // end of first if
 } // end of function
     
 
