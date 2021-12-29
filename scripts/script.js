@@ -100,6 +100,13 @@ function logOut() {
     location.href = "https://" + domain + ".auth." + region + ".amazoncognito.com/logout?client_id=" + clientId + "&logout_uri=" + redirectURI;
 }
 
+function getGetToken(){
+    token = getToken();
+    console.log("getGetToken*********************")
+    console.log(token);
+    console.log("getGetToken*********************")
+}
+
 function getToken() {
     var cognitoUser = userPool.getCurrentUser();
     console.log("getToken called");
