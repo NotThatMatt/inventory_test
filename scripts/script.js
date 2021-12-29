@@ -147,6 +147,8 @@ function getUploadUrl() {
 	request.setRequestHeader("Access-Control-Allow-Origin", "*");
 	request.send();
 
+    console.log(request);
+
 	request.onload = function () {
 		var data = JSON.parse(this.response);
 		if (request.status >= 200 && request.status < 400) {
