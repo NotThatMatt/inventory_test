@@ -144,6 +144,7 @@ function getUploadUrl() {
         }})
     .then(response => response.json())
     .then(response => {console.log('Success:', response);})
+    .then(response => {uploadFile(response);})
     .then(uploadFile(response));
     // .then(response => console.log(response))
     
@@ -151,7 +152,7 @@ function getUploadUrl() {
 
 function uploadFile(response){
     console.log("uploadFile called");
-    console.log(response);
+    console.log("response ", response);
 
     const file = document.getElementById('file').files[0]
 	const uploadUrl = response.url;
