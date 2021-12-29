@@ -120,10 +120,10 @@ function getToken() {
             if(result) {
                 console.log('User currently logged in.')
                 console.log(result.getIdToken().getJwtToken());
-                idToken = result.getIdToken().getJwtToken();
             }
         }) // end of getSession()
     }
+    idToken = result.getIdToken().getJwtToken();
     return idToken; // end of first if
 } // end of function
     
