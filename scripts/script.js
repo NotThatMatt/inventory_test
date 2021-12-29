@@ -151,8 +151,9 @@ function getUploadUrl() {
 	// request.open("GET", apiUrl + "/upload?" + params);
     request.open("GET", apiUrl + params);
 	request.setRequestHeader("Accept", "*/*");
+    request.withCredentials = true;
 	request.setRequestHeader("Authorization", idToken);
-	request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	request.setRequestHeader("Access-Control-Allow-Origin", "Authorization");
 	request.send();
     
     console.log("idToken**********************");
