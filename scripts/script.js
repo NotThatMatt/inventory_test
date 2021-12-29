@@ -102,23 +102,21 @@ function logOut() {
 
 function getToken() {
     var cognitoUser = userPool.getCurrentUser();
-    console.log("getToken called");
-    console.log(cognitoUser);
     if (cognitoUser != null) {
-        tkn = cognitoUser.getSession(function (err, result) {
+        bob = cognitoUser.getSession(function (err, result) {
             if (err) {
                 console.log("Error in getSession()");
                 console.error(err);
                 return err
             }
             if(result) {
-                console.log('User currently logged in.')
+                // console.log('User currently logged in.')
                 // console.log(result.getIdToken().getJwtToken());
                 return result
             }
         }) // end of getSession()
     }
-    idToken = tkn.getIdToken().getJwtToken();
+    idToken = bob.getIdToken().getJwtToken();
     return idToken; // end of first if
 } // end of function
     
