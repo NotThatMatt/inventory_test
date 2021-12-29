@@ -151,19 +151,62 @@ function getUploadUrl() {
         "Authorization": idToken
         }})
     .then(response => response.json())
-    .then(data => console.log(data));
-
-    // fetch(apiUrl + params,
-    //     {method: 'GET', // or 'PUT'
-    //     headers: {        
-    //     'Accept': '*/*',
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Authorization": idToken
-    //     }})
-    // .then(response => response.json())
-    // .then(data => console.log(data));
+    .then(data => uploadFile(data));
 }
 
+function uploadFile(){
+
+    const file = document.getElementById('file').files[0]
+	const uploadUrl = data.url;
+	const formData = new FormData();
+
+	for (key in data.fields) {
+		formData.append(key, data.fields[key])
+	}
+
+	formData.append('file', file);
+
+
+    fetch(uploadUrl, {
+    method: 'PUT',
+    body: formData
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', JSON.stringify(response)))
+
+
+// 	var request = new XMLHttpRequest();
+// 	request.open("POST", uploadUrl, true);
+// 	request.send(formData);
+
+// 	request.onload = function () {
+// 		console.log(this.response);
+// 		if (request.status >= 200 && request.status < 400) {
+// 			submitJob()
+// 		} else {
+// 			console.log("error");
+// 		}
+// 	};
+
+
+
+
+// var formData = new FormData();
+// var fileField = document.querySelector("input[type='file']");
+
+// formData.append('username', 'abc123');
+// formData.append('avatar', fileField.files[0]);
+
+// fetch('https://example.com/profile/avatar', {
+//   method: 'PUT',
+//   body: formData
+// })
+// .then(response => response.json())
+// .catch(error => console.error('Error:', error))
+// .then(response => console.log('Success:', JSON.stringify(response)))
+
+}
 
 // function _getUploadUrl() {
 // 	var fileName = document.getElementById('file').files[0].name;
