@@ -152,7 +152,7 @@ function getUploadUrl() {
 
 function uploadFile(data){
     console.log("uploadFile called");
-    console.log("data: ", data);
+    console.log("data: ", data.url);
 }
 
     // const file = document.getElementById('file').files[0]
