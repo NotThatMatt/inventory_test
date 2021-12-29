@@ -144,27 +144,27 @@ function getUploadUrl() {
         }})
     .then(response => response.json())
     .then(response => uploadFile(response));
-    // .then(response => {console.log('Success:', response);})
-    
-//    uploadFile(bob);
-
-
 }
 
 function uploadFile(data){
     console.log("uploadFile called");
     console.log("data: ", data.url);
+    
+    const file = document.getElementById('file').files[0]
+	const uploadUrl = data.url;
+	const formData = new FormData();
+    for (key in data.fields) {
+		formData.append(key, data.fields[key])
+    
+        formData.append('file', file);
+	}
+    console.log('formdata', formData);
 }
 
-    // const file = document.getElementById('file').files[0]
-	// const uploadUrl = data.url;
-	// const formData = new FormData();
 
-	// for (key in data.fields) {
-	// 	formData.append(key, data.fields[key])
-	// }
+	
 
-	// formData.append('file', file);
+	
 
 
     // fetch(uploadUrl, {
