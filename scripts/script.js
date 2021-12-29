@@ -121,6 +121,13 @@ function getToken() {
 
 /* (2) File Input Utility */
 
+// get the filename of the file to upload and set the custom file label field
+function getFileName(fileName) {
+	var name = fileName.files.item(0).name
+	document.getElementById('custom-file-label').innerHTML = name;
+}
+
+
 function addFileName () {
     var fileName = document.getElementById('fileinput').files[0].name;
     document.getElementById('fileName').innerHTML = fileName;
