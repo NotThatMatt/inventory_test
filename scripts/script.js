@@ -152,26 +152,27 @@ function getUploadUrl() {
 
 function uploadFile(data){
     console.log("uploadFile called");
-    console.log("response ", data);
+    console.log("data: ", data);
+}
 
-    const file = document.getElementById('file').files[0]
-	const uploadUrl = data.url;
-	const formData = new FormData();
+    // const file = document.getElementById('file').files[0]
+	// const uploadUrl = data.url;
+	// const formData = new FormData();
 
-	for (key in data.fields) {
-		formData.append(key, data.fields[key])
-	}
+	// for (key in data.fields) {
+	// 	formData.append(key, data.fields[key])
+	// }
 
-	formData.append('file', file);
+	// formData.append('file', file);
 
 
-    fetch(uploadUrl, {
-    method: 'PUT',
-    body: formData
-    })
-    .then(response => response.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', JSON.stringify(response)))
+    // fetch(uploadUrl, {
+    // method: 'PUT',
+    // body: formData
+    // })
+    // .then(response => response.json())
+    // .catch(error => console.error('Error:', error))
+    // .then(response => console.log('Success:', JSON.stringify(response)))
 
 
 // 	var request = new XMLHttpRequest();
