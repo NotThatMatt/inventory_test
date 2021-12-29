@@ -137,7 +137,7 @@ function getUploadUrl() {
 	var fileName = document.getElementById('file').files[0].name;
     var request = new XMLHttpRequest();
 	var params = "filename=" + fileName;
-    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
+    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
     var idToken = getToken();
 
 	// request.open("GET", apiUrl + "/upload?" + params);
