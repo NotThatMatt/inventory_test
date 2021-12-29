@@ -158,7 +158,15 @@ function uploadFile(data){
     
         formData.append('file', file);
 	}
-    console.log('formdata', formData);
+    
+    fetch(uploadUrl, {
+        method: 'PUT',
+        body: formData
+        })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', JSON.stringify(response)))
+    
 }
 
 
@@ -167,13 +175,6 @@ function uploadFile(data){
 	
 
 
-    // fetch(uploadUrl, {
-    // method: 'PUT',
-    // body: formData
-    // })
-    // .then(response => response.json())
-    // .catch(error => console.error('Error:', error))
-    // .then(response => console.log('Success:', JSON.stringify(response)))
 
 
 // 	var request = new XMLHttpRequest();
