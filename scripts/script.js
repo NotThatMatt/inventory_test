@@ -142,7 +142,6 @@ function getUploadUrl() {
         headers: {        
         "Authorization": idToken
         }})
-    console.log("fetch reponse:")
     .then(response => response.json())
     .then(result => {
         console.log('Success:', result);})
