@@ -146,11 +146,11 @@ function getUploadUrl() {
     var idToken = getToken();
 
     fetch(apiUrl + params,
-        {method: 'POST', // or 'PUT'
+        {method: 'GET', // or 'PUT'
         headers: {
         'Content-Type': 'image/jpeg',
         'Accept': '*/*',
-        "Access-Control-Allow-Origin": "Authorization",
+        "Access-Control-Allow-Origin": "*",
         "Authorization": idToken
         }})
     .then(response => response.json())
