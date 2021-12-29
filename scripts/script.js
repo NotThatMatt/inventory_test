@@ -139,9 +139,18 @@ function getFileName(fileName) {
 }
 
 
-
-
 function getUploadUrl() {
+    var fileName = document.getElementById('file').files[0].name;
+    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
+    var params = "filename=" + fileName;
+
+    fetch(apiUrl + params)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}
+
+
+function _getUploadUrl() {
 	var fileName = document.getElementById('file').files[0].name;
     var request = new XMLHttpRequest();
 	var params = "filename=" + fileName;
