@@ -145,7 +145,11 @@ function getUploadUrl() {
     var params = "filename=" + fileName;
     var idToken = getToken();
 
-    fetch(apiUrl)
+    fetch(apiUrl + params,
+        {method: 'GET', // or 'PUT'
+        headers: {        
+        "Authorization": idToken
+        }})
     .then(response => response.json())
     .then(data => console.log(data));
 
