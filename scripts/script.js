@@ -147,8 +147,7 @@ function getUploadUrl() {
 
     fetch(apiUrl + params,
         {method: 'GET', // or 'PUT'
-        headers: {
-        'Content-Type': 'image/jpeg',
+        headers: {        
         'Accept': '*/*',
         "Access-Control-Allow-Origin": "*",
         "Authorization": idToken
