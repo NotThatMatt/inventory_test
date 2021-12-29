@@ -149,16 +149,16 @@ function getUploadUrl() {
     
 }
 
-function uploadFile(data){
+function uploadFile(response){
     console.log("uploadFile called");
-    console.log(data);
+    console.log(response);
 
     const file = document.getElementById('file').files[0]
-	const uploadUrl = data.url;
+	const uploadUrl = response.url;
 	const formData = new FormData();
 
-	for (key in data.fields) {
-		formData.append(key, data.fields[key])
+	for (key in response.fields) {
+		formData.append(key, response.fields[key])
 	}
 
 	formData.append('file', file);
