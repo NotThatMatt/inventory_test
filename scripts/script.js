@@ -103,7 +103,7 @@ function logOut() {
 function getToken() {
     var cognitoUser = userPool.getCurrentUser();
     if (cognitoUser != null) {
-        bob = cognitoUser.getSession(function (err, result) {
+        tkn = cognitoUser.getSession(function (err, result) {
             if (err) {
                 console.log("Error in getSession()");
                 console.error(err);
@@ -116,7 +116,7 @@ function getToken() {
             }
         }) // end of getSession()
     }
-    idToken = bob.getIdToken().getJwtToken();
+    idToken = tkn.getIdToken().getJwtToken();
     return idToken; // end of first if
 } // end of function
     
@@ -144,7 +144,7 @@ function getUploadUrl() {
         }})
     .then(response => response.json())
     .then(response => {console.log('Success:', response);})
-    .then(response => uploadFile(response));
+    .then(uploadFile(response));
     // .then(response => console.log(response))
     
 }
