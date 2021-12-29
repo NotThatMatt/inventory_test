@@ -146,8 +146,14 @@ function getUploadUrl() {
 	request.setRequestHeader("Authorization", idToken);
 	request.setRequestHeader("Access-Control-Allow-Origin", "*");
 	request.send();
+    
+    console.log("idToken**********************");
+    console.log(idToken);
+    console.log("idToken**********************");
 
+    console.log("request**********************");
     console.log(request);
+    console.log("request**********************");
 
 	request.onload = function () {
 		var data = JSON.parse(this.response);
