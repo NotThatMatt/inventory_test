@@ -154,7 +154,7 @@ function getUploadUrl() {
     .then(data => uploadFile(data));
 }
 
-function uploadFile(){
+function uploadFile(data){
 
     const file = document.getElementById('file').files[0]
 	const uploadUrl = data.url;
