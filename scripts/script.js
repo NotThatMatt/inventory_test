@@ -143,45 +143,53 @@ function getUploadUrl() {
     var fileName = document.getElementById('file').files[0].name;
     var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
     var params = "filename=" + fileName;
+    var idToken = getToken();
 
-    fetch(apiUrl + params)
+    fetch(apiUrl + params,
+        {method: 'POST', // or 'PUT'
+        headers: {
+        'Content-Type': 'image/jpeg',
+        'Accept': '*/*',
+        "Access-Control-Allow-Origin": "Authorization",
+        "Authorization": idToken
+        }})
     .then(response => response.json())
     .then(data => console.log(data));
 }
 
 
-function _getUploadUrl() {
-	var fileName = document.getElementById('file').files[0].name;
-    var request = new XMLHttpRequest();
-	var params = "filename=" + fileName;
-    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
-    var idToken = getToken();
+// function _getUploadUrl() {
+// 	var fileName = document.getElementById('file').files[0].name;
+//     var request = new XMLHttpRequest();
+// 	var params = "filename=" + fileName;
+//     var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
+//     var idToken = getToken();
 
-	// request.open("GET", apiUrl + "/upload?" + params);
-    request.open("GET", apiUrl + params);
-	request.setRequestHeader("Accept", "*/*");
-    request.withCredentials = true;
-	request.setRequestHeader("Authorization", idToken);
-	request.setRequestHeader("Access-Control-Allow-Origin", "Authorization");
-	request.send();
+// 	// request.open("GET", apiUrl + "/upload?" + params);
+//     request.open("GET", apiUrl + params);
+// 	request.setRequestHeader("Accept", "*/*");
+//     request.withCredentials = true;
+// 	request.setRequestHeader("Authorization", idToken);
+// 	request.setRequestHeader("Access-Control-Allow-Origin", "Authorization");
+// 	request.send();
     
-    console.log("idToken**********************");
-    console.log(idToken);
-    console.log("idToken**********************");
+//     console.log("idToken**********************");
+//     console.log(idToken);
+//     console.log("idToken**********************");
 
-    console.log("request**********************");
-    console.log(request);
-    console.log("request**********************");
+//     console.log("request**********************");
+//     console.log(request);
+//     console.log("request**********************");
 
-	request.onload = function () {
-		var data = JSON.parse(this.response);
-		if (request.status >= 200 && request.status < 400) {
-			console.log(data);
-		} else {
-			console.log("error");
-		}
-	};
-}
+// 	request.onload = function () {
+// 		var data = JSON.parse(this.response);
+// 		if (request.status >= 200 && request.status < 400) {
+// 			console.log(data);
+// 		} else {
+// 			console.log("error");
+// 		}
+// 	};
+// }
 
 
 
