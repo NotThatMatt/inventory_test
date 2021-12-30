@@ -150,29 +150,29 @@ function uploadFile(data){
     console.log("uploadFile called");
     console.log("data: ", data);
     
-    // const file = document.getElementById('file').files[0]
-    // console.log("file type: ", file.type);
-	// const uploadUrl = data.url;
-	// const formData = new FormData();
-    // for (key in data.fields) {
-	// 	formData.append(key, data.fields[key])
-    // 	}
+    const file = document.getElementById('file').files[0]
+    console.log("file type: ", file.type);
+	const uploadUrl = data.url;
+	const formData = new FormData();
+    for (key in data.fields) {
+		formData.append(key, data.fields[key])
+    	}
 
-    //     // formData.append('Content-Type', file.type);
-    //     formData.append('file', file);
+        // formData.append('Content-Type', file.type);
+        formData.append('file', file);
     
-    //     const config = {
-    //         method: "POST",
-    //         // headers: new Headers({
-    //         //     "Accept": "application/xml"
-    //         //   }),
-    //         body: formData,
-    //       };
+        const config = {
+            method: "POST",
+            // headers: new Headers({
+            //     "Accept": "application/xml"
+            //   }),
+            body: formData,
+          };
     
-    //     fetch(uploadUrl, config)
-    //     .then(response => response.json())
-    //     .catch(error => console.error('Error:', error))
-    //     .then(response => console.log('Success:', JSON.stringify(response)))
+        fetch(uploadUrl, config)
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', JSON.stringify(response)))
     
 }
 
