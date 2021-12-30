@@ -146,7 +146,7 @@ function getUploadUrl() {
     .then(response => uploadFile(response));
 }
 
-function __uploadFile(data){
+function uploadFile(data){
     console.log("uploadFile called");
     console.log("data: ", data.url);
     
@@ -157,20 +157,26 @@ function __uploadFile(data){
     for (key in data.fields) {
 		formData.append(key, data.fields[key])
     	}
-    
+
+        formData.append('Content-Type', file.fileType);
         formData.append('file', file);
     
-    fetch(uploadUrl, {
-        method: 'PUT',
-        body: formData
-        })
+        const config = {
+            method: "POST",
+            headers: new Headers({
+                "Accept": "application/xml"
+              }),
+            body: formData,
+          };
+    
+        fetch(url, config)
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', JSON.stringify(response)))
     
 }
 
-function uploadFile(data) {
+function __uploadFile(data) {
 	const file = document.getElementById('file').files[0]
     console.log("file : ", file);
 	const uploadUrl = data.url;
@@ -179,7 +185,8 @@ function uploadFile(data) {
 	for (key in data.fields) {
 		formData.append(key, data.fields[key])
 	}
-
+    
+    formData.append('Content-Type', file.type);
 	formData.append('file', file);
 
 	var request = new XMLHttpRequest();
