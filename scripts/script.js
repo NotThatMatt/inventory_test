@@ -162,7 +162,7 @@ function uploadFile(data){
         formData.append('file', file);
     
         const config = {
-            method: "PUT",
+            method: "POST",
             // headers: new Headers({
             //     "Accept": "application/xml"
             //   }),
@@ -178,7 +178,9 @@ function uploadFile(data){
 
 
 
-	
+function bob(){
+    console.log('bob');
+}
 
 	
 
