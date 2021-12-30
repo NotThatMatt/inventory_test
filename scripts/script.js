@@ -143,7 +143,8 @@ function getUploadUrl() {
         "Authorization": idToken
         }})
     .then(response => response.json())
-    .then(response => uploadFile(response));
+    .then(response => console.log(response.json()));
+    // .then(response => uploadFile(response));
 }
 
 function uploadFile(data){
