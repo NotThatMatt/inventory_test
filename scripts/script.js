@@ -176,32 +176,6 @@ function uploadFile(data){
     
 }
 
-function __uploadFile(data) {
-	const file = document.getElementById('file').files[0]
-    console.log("file : ", file);
-	const uploadUrl = data.url;
-	const formData = new FormData();
-
-	for (key in data.fields) {
-		formData.append(key, data.fields[key])
-	}
-    
-    formData.append('Content-Type', file.type);
-	formData.append('file', file);
-
-	var request = new XMLHttpRequest();
-	request.open("PUT", uploadUrl, true);
-	request.send(formData);
-
-	request.onload = function () {
-		console.log(this.response);
-		if (request.status >= 200 && request.status < 400) {
-			submitJob()
-		} else {
-			console.log("error");
-		}
-	};
-}
 
 
 	
