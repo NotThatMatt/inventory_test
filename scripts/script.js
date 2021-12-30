@@ -264,8 +264,7 @@ function addItem(data){
     // request.setRequestHeader("Access-Control-Allow-Origin", "*");
 	// request.setRequestHeader('Content-Type', 'application/json');
 
-	// request.send(JSON.stringify(json));
-    request.send(JSON.stringify(json));
+	request.send(JSON.stringify(json));
 
 	console.log(json);
 
