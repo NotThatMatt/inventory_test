@@ -255,6 +255,7 @@ function addItem(data){
             "itemDescripton": itemDescripton
 		}
 
+    console.log("request body: ", json)
     var request = new XMLHttpRequest();
 	request.open("POST", apiUrl + "/item");
 
