@@ -226,7 +226,7 @@ function uploadFile(data){
 	request.onload = function () {
 		console.log(this.response);
 		if (request.status >= 200 && request.status < 400) {
-			// submitJob()
+			addItem(response)
 		} else {
 			console.log("error");
 		}
@@ -235,8 +235,31 @@ function uploadFile(data){
 }
 
 
-function bob(){
-    console.log('bob');
+function addItem(data){
+    console.log("add item called");
+    console.log("data: ", data);
+//     var filename = document.getElementById('file').files[0].name;
+// 	var jobForm = document.getElementById("jobParams");
+// 	var source = document.getElementById("source");
+// 	var sourceLang = source.value.split('|');
+// 	var sourceShort = sourceLang[0]; 
+// 	var sourceLong = sourceLang[1];
+// 	var checkedLangs = []
+// 	var subtitles = document.getElementsByName('subtitle')
+// 	var polly = document.getElementsByName('polly')
+
+// 	var json = {
+// 		"Inputs": {
+// 			"inputMediaBucket": uploadBucket,
+// 			"inputMediaKey": filename,
+// 			"mediaFile": filename,
+// 			"mediaFormat": "mp4",
+
+// 			"sourceLanguageShort": sourceShort,
+// 			"sourceLanguageFull": sourceLong
+// 		},
+// 		"Targets": []
+// 	}
 }
 
 	
