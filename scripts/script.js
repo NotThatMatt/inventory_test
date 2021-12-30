@@ -163,9 +163,9 @@ function uploadFile(data){
     
         const config = {
             method: "PUT",
-            headers: new Headers({
-                "Accept": "application/xml"
-              }),
+            // headers: new Headers({
+            //     "Accept": "application/xml"
+            //   }),
             body: formData,
           };
     
