@@ -208,6 +208,8 @@ function uploadFile(data){
     console.log("data: ", data);
     
 	const file = document.getElementById('file').files[0]
+    var filename = data.fileName
+    var new_file = new File([file], filename);
 	const uploadUrl = data.url;
 	const formData = new FormData();
 
@@ -215,7 +217,7 @@ function uploadFile(data){
 		formData.append(key, data.fields[key])
 	}
 
-	formData.append('file', file);
+	formData.append('file', new_file);
 
 	var request = new XMLHttpRequest();
 	request.open("POST", uploadUrl, true);
