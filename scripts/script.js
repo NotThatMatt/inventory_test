@@ -278,7 +278,15 @@ function addItem(data){
 }
 
 	
+function bob(){
+    console.log("bob has been called")
+    var itemName = document.getElementById("inputName");
+	var itemDescripton = document.getElementById("inputDescripton");
 
+    console.log("itemName: ", itemName)
+    console.log("itemDescripton: ", itemDescripton)
+
+}
 
 
 
