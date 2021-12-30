@@ -247,7 +247,7 @@ function addItem(data){
 	var itemDescripton = document.getElementById("inputDescripton").value;
 
 	var json = {
-			"imageId": imageId,
+			"itemId": imageId,
 			"userId": userId,
 			"imageName": imageName,
 			"imagePath": imagePath,
