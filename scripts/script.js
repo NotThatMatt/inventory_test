@@ -169,7 +169,7 @@ function uploadFile(data){
             body: formData,
           };
     
-        fetch(url, config)
+        fetch(uploadUrl, config)
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', JSON.stringify(response)))
