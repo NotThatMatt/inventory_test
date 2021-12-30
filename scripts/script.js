@@ -265,7 +265,7 @@ function addItem(data){
 	// request.setRequestHeader('Content-Type', 'application/json');
 
 	// request.send(JSON.stringify(json));
-    request.send(json);
+    request.send(JSON.stringify(json));
 
 	console.log(json);
 
