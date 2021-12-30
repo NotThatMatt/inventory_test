@@ -130,52 +130,102 @@ function getFileName(fileName) {
 }
 
 
+// function getUploadUrl() {
+//     console.log("getUploadUrl called")
+//     var fileName = document.getElementById('file').files[0].name;
+//     var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
+//     var params = "filename=" + fileName;
+//     var idToken = getToken();
+
+//     fetch(apiUrl + params,
+//         {method: 'GET', // or 'PUT'
+//         headers: {        
+//         "Authorization": idToken
+//         }})
+//     .then(response => response.json())
+//     .then(response => uploadFile(response));
+// }
+
+// function uploadFile(data){
+//     console.log("uploadFile called");
+//     console.log("data: ", data);
+    
+//     const file = document.getElementById('file').files[0]
+//     console.log("file type: ", file.type);
+// 	const uploadUrl = data.url;
+// 	const formData = new FormData();
+//     for (key in data.fields) {
+// 		formData.append(key, data.fields[key])
+//     	}
+
+//         // formData.append('Content-Type', file.type);
+//         formData.append('file', file);
+    
+//         const config = {
+//             method: "PUT",
+//             // headers: new Headers({
+//             //     "Accept": "application/xml"
+//             //   }),
+//             body: formData,
+//           };
+    
+//         fetch(uploadUrl, config)
+//         .then(response => response.json())
+//         .catch(error => console.error('Error:', error))
+//         .then(response => console.log('Success:', JSON.stringify(response)))
+    
+// }
+
 function getUploadUrl() {
     console.log("getUploadUrl called")
-    var fileName = document.getElementById('file').files[0].name;
-    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
-    var params = "filename=" + fileName;
-    var idToken = getToken();
+	var request = new XMLHttpRequest();
+	var params = "filename=" + fileName;
 
-    fetch(apiUrl + params,
-        {method: 'GET', // or 'PUT'
-        headers: {        
-        "Authorization": idToken
-        }})
-    .then(response => response.json())
-    .then(response => uploadFile(response));
+	request.open("GET", apiUrl + "/upload?" + params);
+	request.setRequestHeader("Accept", "*/*");
+	request.setRequestHeader("authorization", "superSecret");
+	request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	request.send();
+
+	request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+			uploadFile(data);
+		} else {
+			console.log("error");
+		}
+	};
+
 }
 
 function uploadFile(data){
     console.log("uploadFile called");
     console.log("data: ", data);
     
-    const file = document.getElementById('file').files[0]
-    console.log("file type: ", file.type);
+	const file = document.getElementById('file').files[0]
 	const uploadUrl = data.url;
 	const formData = new FormData();
-    for (key in data.fields) {
-		formData.append(key, data.fields[key])
-    	}
 
-        // formData.append('Content-Type', file.type);
-        formData.append('file', file);
-    
-        const config = {
-            method: "PUT",
-            // headers: new Headers({
-            //     "Accept": "application/xml"
-            //   }),
-            body: formData,
-          };
-    
-        fetch(uploadUrl, config)
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', JSON.stringify(response)))
+	for (key in data.fields) {
+		formData.append(key, data.fields[key])
+	}
+
+	formData.append('file', file);
+
+	var request = new XMLHttpRequest();
+	request.open("POST", uploadUrl, true);
+	request.send(formData);
+
+	request.onload = function () {
+		console.log(this.response);
+		if (request.status >= 200 && request.status < 400) {
+			// submitJob()
+		} else {
+			console.log("error");
+		}
+	};
     
 }
-
 
 
 function bob(){
