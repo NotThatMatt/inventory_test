@@ -237,28 +237,43 @@ function uploadFile(data){
 function addItem(data){
     console.log("add item called");
     console.log("data: ", data);
-//     var filename = document.getElementById('file').files[0].name;
-// 	var jobForm = document.getElementById("jobParams");
-// 	var source = document.getElementById("source");
-// 	var sourceLang = source.value.split('|');
-// 	var sourceShort = sourceLang[0]; 
-// 	var sourceLong = sourceLang[1];
-// 	var checkedLangs = []
-// 	var subtitles = document.getElementsByName('subtitle')
-// 	var polly = document.getElementsByName('polly')
+    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
+    var idToken = getToken();
+    var imageId = data.imageId
+    var userId = data.userId
+    var imageName = data.imageName
+    var imagePath = data.fields.key
+	var itemName = document.getElementById("inputName");
+	var itemDescripton = document.getElementById("inputDescripton");
 
-// 	var json = {
-// 		"Inputs": {
-// 			"inputMediaBucket": uploadBucket,
-// 			"inputMediaKey": filename,
-// 			"mediaFile": filename,
-// 			"mediaFormat": "mp4",
+	var json = {
+			"imageId": imageId,
+			"userId": userId,
+			"imageName": imageName,
+			"imagePath": imagePath,
+            "itemName": itemName,
+            "itemDescripton": itemDescripton
+		}
 
-// 			"sourceLanguageShort": sourceShort,
-// 			"sourceLanguageFull": sourceLong
-// 		},
-// 		"Targets": []
-// 	}
+    var request = new XMLHttpRequest();
+	request.open("POST", apiUrl + "/item");
+
+	request.setRequestHeader("Accept", "*/*");
+	request.setRequestHeader("Authorization", idToken);
+	request.setRequestHeader('Content-Type', 'application/json');
+
+	request.send(JSON.stringify(json));
+
+	console.log(json);
+
+	request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+            console.log(data);    
+		} else {
+			console.log("error");
+		}
+	};
 }
 
 	
