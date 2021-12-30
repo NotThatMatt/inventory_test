@@ -189,7 +189,7 @@ function getUploadUrl() {
 	request.open("GET", apiUrl + "/upload?" + params);
 	request.setRequestHeader("Accept", "*/*");
 	request.setRequestHeader("authorization", idToken);
-	request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	// request.setRequestHeader("Access-Control-Allow-Origin", "*");
 	request.send();
 
 	request.onload = function () {
