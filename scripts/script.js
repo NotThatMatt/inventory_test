@@ -143,13 +143,13 @@ function getUploadUrl() {
         "Authorization": idToken
         }})
     .then(response => response.json())
-    .then(response => console.log(response));
-    // .then(response => uploadFile(response));
+    // .then(response => console.log(response));
+    .then(response => uploadFile(response));
 }
 
 function uploadFile(data){
     console.log("uploadFile called");
-    console.log("data: ", data.url);
+    console.log("data: ", data);
     
     const file = document.getElementById('file').files[0]
     console.log("file type: ", file.type);
