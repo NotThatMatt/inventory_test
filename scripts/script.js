@@ -180,13 +180,13 @@ function getUploadUrl() {
     console.log("getUploadUrl called")
 	var request = new XMLHttpRequest();
     var fileName = document.getElementById('file').files[0].name;
-    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
+    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
     var params = "filename=" + fileName;
     var idToken = getToken();
 
 	var params = "filename=" + fileName;
 
-	request.open("GET", apiUrl + params);
+	request.open("GET", apiUrl + "/upload?" + params);
 	request.setRequestHeader("Accept", "*/*");
 	request.setRequestHeader("authorization", idToken);
 	// request.setRequestHeader("Access-Control-Allow-Origin", "*");
