@@ -179,6 +179,7 @@ function getFileName(fileName) {
 function getUploadUrl() {
     console.log("getUploadUrl called")
 	var request = new XMLHttpRequest();
+    var fileName = document.getElementById('file').files[0].name;
 	var params = "filename=" + fileName;
 
 	request.open("GET", apiUrl + "/upload?" + params);
