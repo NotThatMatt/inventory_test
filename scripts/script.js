@@ -224,9 +224,9 @@ function uploadFile(data){
 	request.send(formData);
 
 	request.onload = function () {
-		console.log(this.response);
+		console.log(request);
 		if (request.status >= 200 && request.status < 400) {
-			addItem(this.response)
+			addItem(request)
 		} else {
 			console.log("error");
 		}
