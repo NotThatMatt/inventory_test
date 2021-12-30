@@ -158,7 +158,7 @@ function uploadFile(data){
 		formData.append(key, data.fields[key])
     	}
 
-        formData.append('Content-Type', file.type);
+        // formData.append('Content-Type', file.type);
         formData.append('file', file);
     
         const config = {
