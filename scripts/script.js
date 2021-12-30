@@ -151,14 +151,14 @@ function uploadFile(data){
     console.log("data: ", data.url);
     
     const file = document.getElementById('file').files[0]
-    console.log("file type: ", file.fileType);
+    console.log("file type: ", file.type);
 	const uploadUrl = data.url;
 	const formData = new FormData();
     for (key in data.fields) {
 		formData.append(key, data.fields[key])
     	}
 
-        formData.append('Content-Type', file.fileType);
+        formData.append('Content-Type', file.type);
         formData.append('file', file);
     
         const config = {
