@@ -243,8 +243,8 @@ function addItem(data){
     var userId = data.userId
     var imageName = data.imageName
     var imagePath = data.fields.key
-	var itemName = document.getElementById("inputName");
-	var itemDescripton = document.getElementById("inputDescripton");
+	var itemName = document.getElementById("inputName").value;
+	var itemDescripton = document.getElementById("inputDescripton").value;
 
 	var json = {
 			"imageId": imageId,
@@ -258,10 +258,10 @@ function addItem(data){
     var request = new XMLHttpRequest();
 	request.open("POST", apiUrl + "/item");
 
-	request.setRequestHeader("Accept", "*/*");
+	// request.setRequestHeader("Accept", "*/*");
 	request.setRequestHeader("Authorization", idToken);
-    request.setRequestHeader("Access-Control-Allow-Origin", "*");
-	request.setRequestHeader('Content-Type', 'application/json');
+    // request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	// request.setRequestHeader('Content-Type', 'application/json');
 
 	request.send(JSON.stringify(json));
 
@@ -278,15 +278,6 @@ function addItem(data){
 }
 
 	
-function bob(){
-    console.log("bob has been called")
-    var itemName = document.getElementById("inputName").value;
-	var itemDescripton = document.getElementById("inputDescripton").value;
-
-    console.log("itemName: ", itemName)
-    console.log("itemDescripton: ", itemDescripton)
-
-}
 
 
 
