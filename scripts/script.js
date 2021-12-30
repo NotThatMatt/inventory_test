@@ -280,8 +280,8 @@ function addItem(data){
 	
 function bob(){
     console.log("bob has been called")
-    var itemName = document.getElementById("inputName");
-	var itemDescripton = document.getElementById("inputDescripton");
+    var itemName = document.getElementById("inputName").value;
+	var itemDescripton = document.getElementById("inputDescripton").value;
 
     console.log("itemName: ", itemName)
     console.log("itemDescripton: ", itemDescripton)
