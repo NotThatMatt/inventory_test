@@ -260,6 +260,7 @@ function addItem(data){
 
 	request.setRequestHeader("Accept", "*/*");
 	request.setRequestHeader("Authorization", idToken);
+    request.setRequestHeader("Access-Control-Allow-Origin", "*");
 	request.setRequestHeader('Content-Type', 'application/json');
 
 	request.send(JSON.stringify(json));
