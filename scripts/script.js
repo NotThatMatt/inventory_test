@@ -284,6 +284,7 @@ function resetForm(){
     console.log('resetForm called')
     document.getElementById('custom-file-label').innerHTML = "Choose file";
 	document.getElementById("itemParams").reset();
+    window.location = './index.html'
 
 }
 
