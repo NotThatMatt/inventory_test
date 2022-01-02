@@ -271,7 +271,8 @@ function addItem(data){
 	request.onload = function () {
 		var data = JSON.parse(this.response);
 		if (request.status >= 200 && request.status < 400) {
-            console.log(data);    
+            console.log(data); 
+            resetForm();
 		} else {
 			console.log("error");
 		}
@@ -279,7 +280,12 @@ function addItem(data){
 }
 
 	
+function resetForm(){
 
+    document.getElementById('custom-file-label').innerHTML = "Choose file";
+	document.getElementById("itemParams").reset();
+
+}
 
 
 // 	var request = new XMLHttpRequest();
