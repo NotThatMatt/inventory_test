@@ -3,7 +3,10 @@ var userPoolId = 'us-east-1_jMaZr92rs'
 var clientId = '4q8t472868ev9g44lt0ctu7n0e'
 var domain = "mjdemo";
 var region = "us-east-1";
-var redirectURI = "https://d2r67l9fwjip4c.cloudfront.net/index.html";
+// var redirectURI = "https://d2r67l9fwjip4c.cloudfront.net/index.html";
+var redirectURI = "https://127.0.0.1:8080/index.html";
+var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
+
 var urlParams = new URLSearchParams(window.location.search);
 
 var poolData = { UserPoolId : userPoolId,
@@ -110,8 +113,8 @@ function getToken() {
                 return err
             }
             if(result) {
-                // console.log('User currently logged in.')
-                // console.log(result.getIdToken().getJwtToken());
+                console.log('User currently logged in.')
+                console.log(result.getIdToken().getJwtToken());
                 return result
             }
         }) // end of getSession()
@@ -180,7 +183,7 @@ function getUploadUrl() {
     console.log("getUploadUrl called")
 	var request = new XMLHttpRequest();
     var fileName = document.getElementById('file').files[0].name;
-    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
+    // var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
     var params = "filename=" + fileName;
     var idToken = getToken();
 
@@ -237,7 +240,7 @@ function uploadFile(data){
 function addItem(data){
     console.log("add item called");
     console.log("data: ", data);
-    var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
+    // var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
     var idToken = getToken();
     var imageId = data.imageId
     var userId = data.userId
@@ -289,74 +292,81 @@ function resetForm(){
 }
 
 
-// 	var request = new XMLHttpRequest();
-// 	request.open("POST", uploadUrl, true);
-// 	request.send(formData);
+function getItemList() {
+	document.getElementById("itemList").innerHTML = "Loading...";
 
-// 	request.onload = function () {
-// 		console.log(this.response);
-// 		if (request.status >= 200 && request.status < 400) {
-// 			submitJob()
-// 		} else {
-// 			console.log("error");
-// 		}
-// 	};
+    var idToken = getToken();
+
+	var request = new XMLHttpRequest();
+	request.open("GET", apiUrl + "/item");
 
 
+	// request.setRequestHeader("Accept", "*/*");
+	// request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	request.setRequestHeader("Authorization", idToken);
+	// request.setRequestHeader('Content-Type', 'application/json');
 
+	request.send();
 
-// var formData = new FormData();
-// var fileField = document.querySelector("input[type='file']");
+	request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+			var html = `<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>`
 
-// formData.append('username', 'abc123');
-// formData.append('avatar', fileField.files[0]);
+    console.log(data);
+	for (var i in data) {
+        html += `<tr><th scope="row"><img src="` + data[i].imagePath + `" alt="` + data[i].imageName + `" style="width:100px;height:100px;"></th>
+        <td><a href="/detail.html?id=` + data[i].itemId + `">` + data[i].itemName + `</a></td>
+        
+        <td>` + data[i].itemDescripton + `</td>`
+		}
+			html += `</tbody>
+      </table>`
+			document.getElementById("itemList").innerHTML = html;
 
-// fetch('https://example.com/profile/avatar', {
-//   method: 'PUT',
-//   body: formData
-// })
-// .then(response => response.json())
-// .catch(error => console.error('Error:', error))
-// .then(response => console.log('Success:', JSON.stringify(response)))
+		} else {
+			console.log("error");
+		}
+	};
 
+};
 
+function getDetail(){    
+    const params = new URLSearchParams(document.location.search);
+    const itemId = params.get("id");
+    console.log(itemId);
 
-// function _getUploadUrl() {
-// 	var fileName = document.getElementById('file').files[0].name;
-//     var request = new XMLHttpRequest();
-// 	var params = "filename=" + fileName;
-//     var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app?";
-//     var idToken = getToken();
+    var idToken = getToken();
 
-// 	// request.open("GET", apiUrl + "/upload?" + params);
-//     request.open("GET", apiUrl + params);
-// 	request.setRequestHeader("Accept", "*/*");
-//     request.withCredentials = true;
-// 	request.setRequestHeader("Authorization", idToken);
-// 	request.setRequestHeader("Access-Control-Allow-Origin", "Authorization");
-// 	request.send();
-    
-//     console.log("idToken**********************");
-//     console.log(idToken);
-//     console.log("idToken**********************");
-
-//     console.log("request**********************");
-//     console.log(request);
-//     console.log("request**********************");
-
-// 	request.onload = function () {
-// 		var data = JSON.parse(this.response);
-// 		if (request.status >= 200 && request.status < 400) {
-// 			console.log(data);
-// 		} else {
-// 			console.log("error");
-// 		}
-// 	};
-// }
+	var request = new XMLHttpRequest();
+	request.open("GET", apiUrl + "/item/"+itemId);
 
 
 
+	// request.setRequestHeader("Accept", "*/*");
+	// request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	request.setRequestHeader("Authorization", idToken);
+	// request.setRequestHeader('Content-Type', 'application/json');
 
+	request.send();
+
+    request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+            console.log(data);
+        } else {
+			console.log("error");
+		}
+	};
+}
 
 
 function addFileName () {
