@@ -282,6 +282,44 @@ function addItem(data){
 	};
 }
 
+function updateItem(){
+    var idToken = getToken();
+    var itemId = document.getElementById("itemId").value;
+    var userId = document.getElementById("userId").value;
+	var itemName = document.getElementById("itemName").value;
+	var itemDescripton = document.getElementById("itemDescripton").value;
+
+	var json = {
+			"itemId": itemId,
+			"userId": userId,
+            "itemName": itemName,
+            "itemDescripton": itemDescripton
+		}
+
+    console.log("request body: ", json)
+    var request = new XMLHttpRequest();
+	request.open("PATCH", apiUrl + "/item/"+itemId);
+
+	// request.setRequestHeader("Accept", "*/*");
+	request.setRequestHeader("Authorization", idToken);
+    // request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	// request.setRequestHeader('Content-Type', 'application/json');
+
+	request.send(JSON.stringify(json));
+
+	console.log(json);
+
+	request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+            console.log(data);
+            readOnly()
+            
+		} else {
+			console.log("error");
+		}
+	};
+}
 	
 function resetForm(){
     console.log('resetForm called')
@@ -361,13 +399,38 @@ function getDetail(){
     request.onload = function () {
 		var data = JSON.parse(this.response);
 		if (request.status >= 200 && request.status < 400) {
-            console.log(data);
-        } else {
+		
+            document.getElementById('Image').src=data.imagePath;
+            document.getElementById('Image').alt=data.imageName;
+            document.getElementById("itemName").value = data.itemName;
+            document.getElementById("itemDescripton").value = data.itemDescripton;
+            document.getElementById("itemId").value = data.itemId;
+            document.getElementById("userId").value = data.userId;
+
+		} else {
 			console.log("error");
 		}
 	};
 }
 
+function readOnly(){
+
+    if(document.getElementById("detailEdit").innerHTML=="Edit"){
+        document.getElementById("itemName").readOnly = false;
+        document.getElementById("itemDescripton").readOnly = false;
+        document.getElementById("detailEdit").innerHTML="Cancel"
+        document.getElementById("detailUpdate").removeAttribute("hidden");
+    }
+    else{
+        document.getElementById("itemName").readOnly = true;
+        document.getElementById("itemDescripton").readOnly = true;
+        document.getElementById("detailEdit").innerHTML="Edit"
+        document.getElementById("detailUpdate").setAttribute("hidden", "hidden");
+        
+
+    }
+
+}
 
 function addFileName () {
     var fileName = document.getElementById('fileinput').files[0].name;

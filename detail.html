@@ -13,7 +13,7 @@
     <!-- nav bar-->
     <nav class="navbar navbar-expand-lg navbar-static-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/index.html">
               <img src="img/logo.png" title="logo" id="logo"/>
                 <b id="brand-title">My Pinventory</b>
             </a>
@@ -31,11 +31,30 @@
             Item Details
         </div>
     </div>
-    <div class="container">
-        
-
+    <button class="btn btn-dark btn-nav" onclick="window.location = './index.html'";>Home</button>    
+    <div class="container" id="itemDetail">
+        <img id="Image" class="img-thumbnail">
+        <form>
+        <div class="form-row">
+          <div class="col">
+            <label for="itemName">Name</label>
+            <input type="text" class="form-control" id ="itemName" readonly>
+          </div>
         </div>
-        
+        <div class="form-row">
+          <div class="col">
+            <label for="itemDescripton">Descripton</label>
+            <input type="text" class="form-control" id="itemDescripton" readonly>
+          </div>
+        </div>
+        <input type="hidden" id="userId" readonly>
+        <input type="hidden" id="itemId" readonly>
+      </form>
+      <button class="btn btn-dark btn-nav" id="detailEdit" onclick="readOnly()";>Edit</button>    
+      <button class="btn btn-dark btn-nav" id="detailUpdate" onclick="updateItem()" hidden="hidden";>Update</button>    
+      
+    </div>
+    
         
     
 
