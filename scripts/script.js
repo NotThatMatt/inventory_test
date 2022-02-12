@@ -320,7 +320,42 @@ function updateItem(){
 		}
 	};
 }
-	
+
+function deleteItem(){
+    var idToken = getToken();
+    var itemId = document.getElementById("itemId").value;
+    var userId = document.getElementById("userId").value;
+
+	var json = {
+			"itemId": itemId,
+			"userId": userId
+		}
+
+    console.log("request body: ", json)
+    var request = new XMLHttpRequest();
+	request.open("DELETE", apiUrl + "/item/"+itemId);
+
+	// request.setRequestHeader("Accept", "*/*");
+	request.setRequestHeader("Authorization", idToken);
+    // request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	// request.setRequestHeader('Content-Type', 'application/json');
+
+	request.send(JSON.stringify(json));
+
+	console.log(json);
+
+	request.onload = function () {
+		var data = JSON.parse(this.response);
+		if (request.status >= 200 && request.status < 400) {
+            console.log(data);
+            window.location = './index.html'
+            
+		} else {
+			console.log("error");
+		}
+	};
+}
+
 function resetForm(){
     console.log('resetForm called')
     document.getElementById('custom-file-label').innerHTML = "Choose file";
@@ -420,12 +455,14 @@ function readOnly(){
         document.getElementById("itemDescripton").readOnly = false;
         document.getElementById("detailEdit").innerHTML="Cancel"
         document.getElementById("detailUpdate").removeAttribute("hidden");
+        document.getElementById("detailDelete").removeAttribute("hidden");
     }
     else{
         document.getElementById("itemName").readOnly = true;
         document.getElementById("itemDescripton").readOnly = true;
         document.getElementById("detailEdit").innerHTML="Edit"
         document.getElementById("detailUpdate").setAttribute("hidden", "hidden");
+        document.getElementById("detailDelete").setAttribute("hidden", "hidden");
         
 
     }
