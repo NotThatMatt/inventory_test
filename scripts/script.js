@@ -1,3 +1,4 @@
+
 /* (1) For AWS Cognito Authentication */
 var userPoolId = 'us-east-1_jMaZr92rs'
 var clientId = '4q8t472868ev9g44lt0ctu7n0e'
@@ -14,6 +15,14 @@ ClientId : clientId
 };
 
 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+function getTags(){
+
+    console.log(tagin.getTags())
+    tags = tagin.getTags()
+    return tags
+}
+
 
 function login(){
     var username = $('#username').val();
@@ -199,6 +208,7 @@ function getUploadUrl() {
 		var data = JSON.parse(this.response);
 		if (request.status >= 200 && request.status < 400) {
 			uploadFile(data);
+            console.log("getUploadUrl successful "+ JSON.stringify(data))
 		} else {
 			console.log("error");
 		}
@@ -248,6 +258,8 @@ function addItem(data){
     var imagePath = data.fields.key
 	var itemName = document.getElementById("inputName").value;
 	var itemDescripton = document.getElementById("inputDescripton").value;
+    var itemTags = getTags()
+    console.log("itemTags: ", itemTags);
 
 	var json = {
 			"itemId": imageId,
@@ -255,7 +267,8 @@ function addItem(data){
 			"imageName": imageName,
 			"imagePath": imagePath,
             "itemName": itemName,
-            "itemDescripton": itemDescripton
+            "itemDescripton": itemDescripton,
+            "itemTags": itemTags
 		}
 
     console.log("request body: ", json)
@@ -288,12 +301,14 @@ function updateItem(){
     var userId = document.getElementById("userId").value;
 	var itemName = document.getElementById("itemName").value;
 	var itemDescripton = document.getElementById("itemDescripton").value;
+    var itemTags = getTags()
 
 	var json = {
 			"itemId": itemId,
 			"userId": userId,
             "itemName": itemName,
-            "itemDescripton": itemDescripton
+            "itemDescripton": itemDescripton,
+            "itemTags": itemTags
 		}
 
     console.log("request body: ", json)
@@ -382,7 +397,7 @@ function getItemList() {
 	request.send();
 
 	request.onload = function () {
-		var data = JSON.parse(this.response);
+		var data = JSON.parse(this.response);        
 		if (request.status >= 200 && request.status < 400) {
 			var html = `<table class="table">
     <thead>
@@ -441,6 +456,13 @@ function getDetail(){
             document.getElementById("itemDescripton").value = data.itemDescripton;
             document.getElementById("itemId").value = data.itemId;
             document.getElementById("userId").value = data.userId;
+            document.getElementById("tagsEdit").setAttribute("hidden", "hidden");
+            if (data.itemTags){
+                tagin.addTag(data.itemTags)
+                document.getElementById("itemTagsRo").value = data.itemTags;
+                
+            }
+
 
 		} else {
 			console.log("error");
@@ -456,6 +478,9 @@ function readOnly(){
         document.getElementById("detailEdit").innerHTML="Cancel"
         document.getElementById("detailUpdate").removeAttribute("hidden");
         document.getElementById("detailDelete").removeAttribute("hidden");
+        document.getElementById("tagsEdit").removeAttribute("hidden");
+        document.getElementById("tagsReadOnly").setAttribute("hidden", "hidden");
+        
     }
     else{
         document.getElementById("itemName").readOnly = true;
@@ -463,11 +488,15 @@ function readOnly(){
         document.getElementById("detailEdit").innerHTML="Edit"
         document.getElementById("detailUpdate").setAttribute("hidden", "hidden");
         document.getElementById("detailDelete").setAttribute("hidden", "hidden");
+        document.getElementById("tagsReadOnly").removeAttribute("hidden");
+        document.getElementById("tagsEdit").setAttribute("hidden", "hidden");
+        document.getElementById("itemTagsRo").value=document.getElementById("itemTags").value;
         
 
     }
 
 }
+
 
 function addFileName () {
     var fileName = document.getElementById('fileinput').files[0].name;

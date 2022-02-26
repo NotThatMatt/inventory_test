@@ -7,10 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="#">
     <title>Uploader</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/tagin@2.0.2/dist/tagin.min.css">
+    <link rel="stylesheet" href="css/style.css">    
 </head>
 <body id="body" >
+    <script type="module">import Tagin from '/scripts/lib/tagin.module.js'</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/scripts/lib/amazon-cognito-identity.min.js"></script>
+    <script src="/scripts/lib/amazon-cognito-auth.min.js"></script>
+    <script src="/scripts/lib/aws-sdk.min.js"></script>
+    <script src="/scripts/script.js"></script>
+    <script src="https://unpkg.com/tagin@2.0.2/dist/tagin.min.js"></script> 
+    
+
+
     <!-- nav bar-->
     <nav class="navbar navbar-expand-lg navbar-static-top">
         <div class="container-fluid">
@@ -54,6 +66,18 @@
                       <label for="inputDescripton">Description</label>
                       <input type="text" class="form-control" id="inputDescripton" placeholder="Description">
                     </div>
+                    <div class="form-group">
+                        <label  data-role="tagsinput">Tags</label>
+                        <!-- Add data-tagin-enter to force adding tag when enter key is pressed. -->
+                        <input type="text" name="tags" class="form-control tagin"  data-tagin-placeholder="Add a tag then press enter">
+
+                        <!-- Or using option: -->
+                        <script>
+                            const tagin = new Tagin(document.querySelector('.tagin'), {
+                                enter: true
+                            })
+                        </script>
+                    </div>
                     <button type="button" class="btn btn-primary" onclick="getUploadUrl();">Add Item</button>
                     <button type="button" class="btn btn-primary" onclick="window.location = './index.html'">Cancel</button>
                   </form>
@@ -66,14 +90,6 @@
     
 
 
-    <!-- Importing scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="scripts/lib/amazon-cognito-identity.min.js"></script>
-    <script src="scripts/lib/amazon-cognito-auth.min.js"></script>
-    <script src="scripts/lib/aws-sdk.min.js"></script>
-    <script src="scripts/script.js"></script>
-    <!-- <script src="scripts/ajaxCallExample.js"></script> -->
     <script type="text/javascript">
         $(function(){
             checkLogin(false, true);
