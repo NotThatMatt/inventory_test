@@ -257,7 +257,7 @@ function addItem(data){
     var imageName = data.imageName
     var imagePath = data.fields.key
 	var itemName = document.getElementById("inputName").value;
-	var itemDescripton = document.getElementById("inputDescripton").value;
+	var itemDescription = document.getElementById("inputDescripton").value;
     var itemTags = getTags()
     console.log("itemTags: ", itemTags);
 
@@ -267,7 +267,7 @@ function addItem(data){
 			"imageName": imageName,
 			"imagePath": imagePath,
             "itemName": itemName,
-            "itemDescripton": itemDescripton,
+            "itemDescription": itemDescription,
             "itemTags": itemTags
 		}
 
@@ -300,14 +300,14 @@ function updateItem(){
     var itemId = document.getElementById("itemId").value;
     var userId = document.getElementById("userId").value;
 	var itemName = document.getElementById("itemName").value;
-	var itemDescripton = document.getElementById("itemDescripton").value;
+	var itemDescription = document.getElementById("itemDescription").value;
     var itemTags = getTags()
 
 	var json = {
 			"itemId": itemId,
 			"userId": userId,
             "itemName": itemName,
-            "itemDescripton": itemDescripton,
+            "itemDescription": itemDescription,
             "itemTags": itemTags
 		}
 
@@ -414,7 +414,7 @@ function getItemList() {
         html += `<tr><th scope="row"><img src="` + data[i].imagePath + `" alt="` + data[i].imageName + `" style="width:100px;height:100px;"></th>
         <td><a href="/detail.html?id=` + data[i].itemId + `">` + data[i].itemName + `</a></td>
         
-        <td>` + data[i].itemDescripton + `</td>`
+        <td>` + data[i].itemDescription + `</td>`
 		}
 			html += `</tbody>
       </table>`
@@ -448,12 +448,14 @@ function getDetail(){
 
     request.onload = function () {
 		var data = JSON.parse(this.response);
+        console.log("****************************");
+        console.log(data.itemTags);
 		if (request.status >= 200 && request.status < 400) {
 		
             document.getElementById('Image').src=data.imagePath;
             document.getElementById('Image').alt=data.imageName;
             document.getElementById("itemName").value = data.itemName;
-            document.getElementById("itemDescripton").value = data.itemDescripton;
+            document.getElementById("itemDescription").value = data.itemDescription;
             document.getElementById("itemId").value = data.itemId;
             document.getElementById("userId").value = data.userId;
             document.getElementById("tagsEdit").setAttribute("hidden", "hidden");
@@ -474,7 +476,7 @@ function readOnly(){
 
     if(document.getElementById("detailEdit").innerHTML=="Edit"){
         document.getElementById("itemName").readOnly = false;
-        document.getElementById("itemDescripton").readOnly = false;
+        document.getElementById("itemDescription").readOnly = false;
         document.getElementById("detailEdit").innerHTML="Cancel"
         document.getElementById("detailUpdate").removeAttribute("hidden");
         document.getElementById("detailDelete").removeAttribute("hidden");
@@ -484,7 +486,7 @@ function readOnly(){
     }
     else{
         document.getElementById("itemName").readOnly = true;
-        document.getElementById("itemDescripton").readOnly = true;
+        document.getElementById("itemDescription").readOnly = true;
         document.getElementById("detailEdit").innerHTML="Edit"
         document.getElementById("detailUpdate").setAttribute("hidden", "hidden");
         document.getElementById("detailDelete").setAttribute("hidden", "hidden");
