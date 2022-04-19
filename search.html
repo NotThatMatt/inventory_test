@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <!-- <body id="body" style="visibility:hidden"> -->
-<body id="body" onload="getItemList()">
+<body id="body">
     <!-- nav bar-->
     <nav class="navbar navbar-expand-lg navbar-static-top">
         <div class="container-fluid">
@@ -34,14 +34,42 @@
     </div>
 
     <button class="btn btn-dark btn-nav" onclick="window.location = './add.html'";>Add New Pin</button>
-    <button class="btn btn-dark btn-nav" onclick="window.location = './search.html'";>Search</button>
+    <div class="container">
+        <form id="searchParams">
+            <div class="form-group"></div>
+            <div class="form-group">
+                <label for="searchTerm">Search:</label>
+                <input type="text" class="form-control" id="searchTerm">
+              </div>
+              <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="searchScope" id="inlineRadio1" checked value="global">
+                    <label class="form-check-label" for="inlineRadio1">All Fields</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="searchScope" id="inlineRadio2" value="itemName">
+                    <label class="form-check-label" for="inlineRadio2">Name</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="searchScope" id="inlineRadio3" value="itemDescription">
+                    <label class="form-check-label" for="inlineRadio3">Description</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="searchScope" id="inlineRadio3" value="itemTags">
+                    <label class="form-check-label" for="inlineRadio3">Tags</label>
+                  </div>                        
+                </div>
+            <button type="button" class="btn btn-primary" onclick="searchItem();">Search</button>
+            <button type="button" class="btn btn-primary" onclick="window.location = './index.html'">Cancel</button>
+          </form>
+    </div>
     <div class="container">
         <hr/>
     </div>
     <div class="container">
         <div class="row">
         <div class="col" >
-            <h3>My Pins</h3>
+            <h3>Search Results</h3>
         </div>
     </div>
         </div>

@@ -427,6 +427,67 @@ function getItemList() {
 
 };
 
+function searchItem() {
+	document.getElementById("itemList").innerHTML = "Loading...";
+    var idToken = getToken();
+	var scope = document.querySelector('input[name="searchScope"]:checked').value;
+	var search_term = document.getElementById("searchTerm").value;
+    
+
+    console.log('search_term : ' + search_term)
+    console.log('scope : ' + scope)
+
+	var json = {
+			"scope": scope,
+			"search_term": search_term
+		}
+
+        console.log('json - ' + JSON.stringify(json))
+
+
+	var request = new XMLHttpRequest();
+	request.open("POST", apiUrl + "/search");
+
+
+	// request.setRequestHeader("Accept", "*/*");
+	// request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	request.setRequestHeader("Authorization", idToken);
+	// request.setRequestHeader('Content-Type', 'application/json');
+
+    request.send(JSON.stringify(json));
+
+	request.onload = function () {
+		var data = JSON.parse(this.response);        
+		if (request.status >= 200 && request.status < 400) {
+			var html = `<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>`
+
+    console.log(data);
+	for (var i in data) {
+        html += `<tr><th scope="row"><img src="` + data[i].imagePath + `" alt="` + data[i].imageName + `" style="width:100px;height:100px;"></th>
+        <td><a href="/detail.html?id=` + data[i].itemId + `">` + data[i].itemName + `</a></td>
+        
+        <td>` + data[i].itemDescription + `</td>`
+		}
+			html += `</tbody>
+      </table>`
+			document.getElementById("itemList").innerHTML = html;
+
+		} else {
+			console.log("error");
+		}
+	};
+
+};
+
+
 function getDetail(){    
     const params = new URLSearchParams(document.location.search);
     const itemId = params.get("id");
