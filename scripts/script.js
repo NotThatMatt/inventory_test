@@ -4,8 +4,8 @@ var userPoolId = 'us-east-1_jMaZr92rs'
 var clientId = '4q8t472868ev9g44lt0ctu7n0e'
 var domain = "mjdemo";
 var region = "us-east-1";
-// var redirectURI = "https://d2r67l9fwjip4c.cloudfront.net/index.html";
-var redirectURI = "https://localhost/index.html";
+var redirectURI = "https://d2r67l9fwjip4c.cloudfront.net/index.html";
+// var redirectURI = "https://localhost/index.html";
 var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
 
 var urlParams = new URLSearchParams(window.location.search);
