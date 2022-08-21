@@ -5,7 +5,7 @@ var clientId = '4q8t472868ev9g44lt0ctu7n0e'
 var domain = "mjdemo";
 var region = "us-east-1";
 // var redirectURI = "https://d2r67l9fwjip4c.cloudfront.net/index.html";
-var redirectURI = "https://127.0.0.1:8080/index.html";
+var redirectURI = "https://localhost/index.html";
 var apiUrl = "https://ff5kb6tx9c.execute-api.us-east-1.amazonaws.com/app";
 
 var urlParams = new URLSearchParams(window.location.search);
@@ -62,16 +62,19 @@ function login(){
 }
 
 function checkLogin(redirectOnRec, redirectOnUnrec){
-
     var cognitoUser = userPool.getCurrentUser();
     if (cognitoUser != null) {
         console.log("user exists")
         if (redirectOnRec) {
             window.location = './index.html';
         } else {
-            $("#body").css({'visibility':'visible'});           
+            // $("#body").css({'visibility':'visible'});
+            // if (window.location.pathname.split("/").pop()=='index.html'){
+            // getItemList();
+            // }
         }
     } else {
+        console.log("not logged in")
         if (redirectOnUnrec) {
             var code = urlParams.get('code');
             if (code == null) {
@@ -90,6 +93,7 @@ function checkLogin(redirectOnRec, redirectOnUnrec){
                     auth.userhandler = {
                     onSuccess: function(result) {
                       //you can do something here
+                    //   getItemList();
                     },
                     onFailure: function(err) {
                         // do somethig if fail
@@ -112,7 +116,7 @@ function logOut() {
     location.href = "https://" + domain + ".auth." + region + ".amazoncognito.com/logout?client_id=" + clientId + "&logout_uri=" + redirectURI;
 }
 
-function getToken() {
+function getToken() {    
     var cognitoUser = userPool.getCurrentUser();
     if (cognitoUser != null) {
         tkn = cognitoUser.getSession(function (err, result) {
@@ -138,7 +142,7 @@ function getToken() {
 // get the filename of the file to upload and set the custom file label field
 function getFileName(fileName) {
 	var name = fileName.files.item(0).name
-	document.getElementById('custom-file-label').innerHTML = name;
+	// document.getElementById('custom-file-label').innerHTML = name;
 }
 
 
@@ -373,7 +377,7 @@ function deleteItem(){
 
 function resetForm(){
     console.log('resetForm called')
-    document.getElementById('custom-file-label').innerHTML = "Choose file";
+    // document.getElementById('custom-file-label').innerHTML = "Choose file";
 	document.getElementById("itemParams").reset();
     window.location = './index.html'
 
@@ -400,21 +404,29 @@ function getItemList() {
 		var data = JSON.parse(this.response);        
 		if (request.status >= 200 && request.status < 400) {
 			var html = `<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Item</th>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-      </tr>
-    </thead>
-    <tbody>`
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>`
 
     console.log(data);
 	for (var i in data) {
-        html += `<tr><th scope="row"><img src="` + data[i].imagePath + `" alt="` + data[i].imageName + `" style="width:100px;height:100px;"></th>
-        <td><a href="/detail.html?id=` + data[i].itemId + `">` + data[i].itemName + `</a></td>
-        
-        <td>` + data[i].itemDescription + `</td>`
+        html += `<tr>
+        <td>
+            <img src="` + data[i].imagePath + `" alt="` + data[i].imageName + `" class="img-fluid avatar-lg">
+        </td>
+        <td>
+          <a href="/detail.html?id=` + data[i].itemId + `">` + data[i].itemName + `</a>
+        </td>
+        <td>
+        ` + data[i].itemDescription + `
+        </td>
+        </tr>`
 		}
 			html += `</tbody>
       </table>`
@@ -424,13 +436,14 @@ function getItemList() {
 			console.log("error");
 		}
 	};
-
+    
 };
 
 function searchItem() {
 	document.getElementById("itemList").innerHTML = "Loading...";
     var idToken = getToken();
-	var scope = document.querySelector('input[name="searchScope"]:checked').value;
+	// var scope = document.querySelector('input[name="searchScope"]:checked').value;
+    var scope = "global"
 	var search_term = document.getElementById("searchTerm").value;
     
 

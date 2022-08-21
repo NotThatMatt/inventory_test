@@ -1,65 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="#">
     <title>My Pinventory</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tagin@2.0.2/dist/tagin.min.css">
-    <link rel="stylesheet" href="css/style.css">    
-
 </head>
 <body id="body" onload="getDetail()">
     <script type="module">import Tagin from '/scripts/lib/tagin.module.js'</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="/scripts/lib/amazon-cognito-identity.min.js"></script>
-    <script src="/scripts/lib/amazon-cognito-auth.min.js"></script>
-    <script src="/scripts/lib/aws-sdk.min.js"></script>
-    <script src="/scripts/script.js"></script>
-    <script src="https://unpkg.com/tagin@2.0.2/dist/tagin.min.js"></script> 
+    <script src="https://unpkg.com/tagin@2.0.2/dist/tagin.min.js"></script>
 
-    <!-- nav bar-->
-    <nav class="navbar navbar-expand-lg navbar-static-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/index.html">
-              <img src="img/logo.png" title="logo" id="logo"/>
-                <b id="brand-title">My Pinventory</b>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="Navbar">
-                <ul class="navbar-nav ml-auto nav">
-                    <li class="nav-list"><button class="btn btn-dark btn-nav" onclick="logOut();">Sign out</button></li>
-                </ul>
-            </div>
-    </nav>
-
-    <!-- Uploader -->
-    <div class="jumbotron">
-        <div class="container">
-            Item Details
-        </div>
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <img class="bi me-2" width="40" height="32" src="img/logo.png" title="logo" id="logo"/>
+          <span class="fs-4">My Pinventory</span>
+        </a>
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="add.html" class="nav-link">Add New Pin</a></li>
+          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Detail/Edit</a></li>
+          <li class="nav-item"><a href="javascript:logOut()" class="nav-link">Log Out</a></li>
+        </ul>
+      </header>
     </div>
-    <button class="btn btn-dark btn-nav" onclick="window.location = './index.html'">Home</button>    
     <div class="container" id="itemDetail">
-        <img id="Image" class="img-thumbnail" style="width:200px;height:200px;">
+        <div class="input-group mb-3">
+            <img id="Image" class="img-thumbnail" style="width:200px;height:200px;">
+        </div>
         <form>
-        <div class="form-row">
-          <div class="col">
-            <label for="itemName">Name</label>
-            <input type="text" class="form-control" id ="itemName" readonly>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col">
-            <label for="itemDescription">Descripton</label>
-            <input type="text" class="form-control" id="itemDescription" readonly>
-          </div>
-        </div>
-        <div class="form-group" id="tagsDiv">
-            <label  data-role="tagsinput">Tags</label>
+            <label for="inputName" class="form-label">Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id ="itemName" readonly>
+            </div>
+
+            <label for="itemDescription" class="form-label">Description</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id ="itemDescription" readonly>
+            </div>
+
+            <label for="itemTags" class="form-label">Tags</label>
+            <div input-group mb-3 id="tagsDiv">
             <!-- Add data-tagin-enter to force adding tag when enter key is pressed. -->
             <div id="tagsEdit">
                 <input type="text" name="tags"  id="itemTags" class="form-control tagin">
@@ -77,23 +61,27 @@
         <input type="hidden" id="userId" readonly>
         <input type="hidden" id="itemId" readonly>
       </form>
-      <button class="btn btn-dark" id="detailEdit" onclick="readOnly()">Edit</button>    
-      <button class="btn btn-dark" id="detailUpdate" onclick="updateItem()" hidden="hidden">Update</button>    
-      <button class="btn btn-danger" id="detailDelete" onclick="deleteItem()" hidden="hidden">Delete</button>    
-      
-      
     </div>
-    
-        
-    
+    <p></p>
+    <div class="container">
+        <button class="btn btn-dark" id="detailEdit" onclick="readOnly()">Edit</button>    
+        <button class="btn btn-dark" id="detailUpdate" onclick="updateItem()" hidden="hidden">Update</button>    
+        <button class="btn btn-danger" id="detailDelete" onclick="deleteItem()" hidden="hidden">Delete</button>    
+      </div>
 
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="scripts/lib/amazon-cognito-identity.min.js"></script>
+    <script src="scripts/lib/amazon-cognito-auth.min.js"></script>
+    <script src="scripts/lib/aws-sdk.min.js"></script>
+    <script src="scripts/script.js"></script>
 
-    <!-- Importing scripts -->
-    <!-- <script src="scripts/ajaxCallExample.js"></script> -->
     <script type="text/javascript">
-        $(function(){
-            checkLogin(false, true);
-        })           
-    </script>
+      $(function(){
+          checkLogin(false, true);
+      })           
+  </script>
+
 </body>
 </html>
